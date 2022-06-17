@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+require 'vendor/autoload.php';
+
+use Crunz\Schedule;
+
+$schedule = new Schedule();
+//$schedule->run('cp project project-bk')->daily();
+
+return $schedule;
