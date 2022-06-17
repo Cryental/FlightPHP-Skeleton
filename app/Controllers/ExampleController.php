@@ -8,10 +8,7 @@ class ExampleController extends Controller {
     public static function showCase() {
         $userRepository = new UserDatabase();
 
-        $done = $userRepository->UpdateById(1, [
-            "name" => "John Doe12",
-            "email" => "test" . rand(0, 100) . "@test.com"
-        ]);
+        $done = $userRepository->DeleteById(1);
 
         \Flight::json($done);
     }
