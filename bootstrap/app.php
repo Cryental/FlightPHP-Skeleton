@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 use Carbon\Carbon;
 use Illuminate\Database\Capsule\Manager as Capsule;
@@ -11,17 +11,17 @@ use Monolog\Logger;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
-$configs = glob(__DIR__ . '/../config/*.php');
+$configs = glob(__DIR__.'/../config/*.php');
 
 foreach ($configs as $config) {
-    require_once($config);
+    require_once $config;
 }
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__.'/../');
 $dotenv->safeLoad();
 
 $log = new Logger($_ENV['APP_NAME']);
-$log->pushHandler(new StreamHandler(__DIR__ . "/../storage/logs/ntric-" . Carbon::now()->toDateString() . '.log', Logger::DEBUG));
+$log->pushHandler(new StreamHandler(__DIR__.'/../storage/logs/ntric-'.Carbon::now()->toDateString().'.log', Logger::DEBUG));
 
 date_default_timezone_set($_ENV['APP_TIMEZONE']);
 
@@ -43,32 +43,32 @@ Paginator::currentPageResolver(function ($pageName = 'page') {
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
-Flight::set('flight.views.path',  __DIR__ . '/../resources/views');
-Flight::set('flight.compiled.views.path', __DIR__ . '/../storage/framework/views');
+Flight::set('flight.views.path', __DIR__.'/../resources/views');
+Flight::set('flight.compiled.views.path', __DIR__.'/../storage/framework/views');
 Flight::set('flight.log_errors', $_ENV['APP_DEBUG'] === 'true');
 
 // Set the view renderer use twig. Before deploying to prod. activate the cache and
 // set the web user allowed to read/write from/to the folder.
 $loader = new Twig\Loader\FilesystemLoader(Flight::get('flight.views.path'));
-$twigConfig = array(
-    'cache'	=>	Flight::get('flight.compiled.views.path'),
-    'debug'	=> $_ENV['APP_DEBUG'] === 'true'
-);
+$twigConfig = [
+    'cache'	=> Flight::get('flight.compiled.views.path'),
+    'debug'	=> $_ENV['APP_DEBUG'] === 'true',
+];
 
 // Sets twig as the view handler for Flight.
-Flight::register('view', 'Twig\Environment', array($loader, $twigConfig), function($twig) {
+Flight::register('view', 'Twig\Environment', [$loader, $twigConfig], function ($twig) {
     $twig->addExtension(new Twig\Extension\DebugExtension());
 });
 
 // Map the call for ease of use.
-Flight::map('render', function($template, $data = []){
+Flight::map('render', function ($template, $data = []) {
     return Flight::view()->display($template, $data);
 });
 
-$whoops = new Run;
+$whoops = new Run();
 $whoops->pushHandler(new PrettyPageHandler());
 
-Flight::map('error', function(Error|Exception $ex) use ($log, $whoops) {
+Flight::map('error', function (Error|Exception $ex) use ($log, $whoops) {
     if ($_ENV['APP_DEBUG'] === 'true') {
         $whoops->handleException($ex);
     } else {
@@ -77,15 +77,15 @@ Flight::map('error', function(Error|Exception $ex) use ($log, $whoops) {
     }
 });
 
-$routes = glob(__DIR__ . '/../routes/*.php');
+$routes = glob(__DIR__.'/../routes/*.php');
 
 foreach ($routes as $route) {
-    require_once($route);
+    require_once $route;
 }
 
 // https://github.com/josantonius/php-session
 $session = new Session();
 
 $session->start([
-    'name' => 'CRYENTAL_SESSION_ID'
+    'name' => 'CRYENTAL_SESSION_ID',
 ]);
