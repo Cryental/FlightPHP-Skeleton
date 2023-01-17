@@ -8,7 +8,8 @@
     "vlucas/phpdotenv": "^5.4",
     "illuminate/database": "^9.48",
     "illuminate/pagination": "^9.48",
-    "twig/twig": "v2.15.4"
+    "twig/twig": "v2.15.4",
+    "josantonius/session": "^2.0"
   },
   "autoload": {
     "classmap": [

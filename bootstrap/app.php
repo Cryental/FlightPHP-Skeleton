@@ -5,6 +5,7 @@ require __DIR__ . '/../vendor/autoload.php';
 use Carbon\Carbon;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Pagination\Paginator;
+use Josantonius\Session\Facades\Session;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Whoops\Handler\PrettyPageHandler;
@@ -82,3 +83,8 @@ foreach ($routes as $route) {
     require_once($route);
 }
 
+$session = new Session();
+
+$session->start([
+    'name' => 'CRYENTAL_SESSION_ID'
+]);
