@@ -83,6 +83,7 @@ foreach ($routes as $route) {
     require_once($route);
 }
 
+// https://github.com/josantonius/php-session
 $session = new Session();
 
 $session->start([
