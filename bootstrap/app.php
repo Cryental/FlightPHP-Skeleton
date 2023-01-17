@@ -16,11 +16,6 @@ foreach ($configs as $config) {
     require($config);
 }
 
-Flight::map('error', function(Exception $ex){
-    // Handle error
-    echo $ex->getTraceAsString();
-});
-
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->safeLoad();
 
