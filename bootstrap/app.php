@@ -2,40 +2,25 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Monolog\Level;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-use Whoops\Handler\PrettyPageHandler;
-use Whoops\Run;
+use Carbon\Carbon;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Pagination\Paginator;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use Whoops\Handler\PrettyPageHandler;
+use Whoops\Run;
 
 $configs = glob(__DIR__ . '/../config/*.php');
 
 foreach ($configs as $config) {
-    require($config);
+    require_once($config);
 }
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->safeLoad();
 
-$whoops = new Run;
-$whoops->pushHandler(new PrettyPageHandler());
-
 $log = new Logger($_ENV['APP_NAME']);
-$log->pushHandler(new StreamHandler(__DIR__ . "/../storage/logs/ntric-" . \Carbon\Carbon::now()->toDateString() . '.log', Level::Debug));
-
-Flight::map('error', function(Error|Exception $ex) use ($log, $whoops) {
-    if ($_ENV['APP_DEBUG'] === 'true') {
-        $whoops->handleException($ex);
-    } else {
-        $log->error($ex->getTraceAsString());
-        Flight::json(['error' => true, 'info' => [
-            'code' => 'INTERNAL_SERVER_ERROR',
-            'message' => 'Fatal error occurred. This has been logged for further investigation.'
-        ]], 500);
-    }
-});
+$log->pushHandler(new StreamHandler(__DIR__ . "/../storage/logs/ntric-" . Carbon::now()->toDateString() . '.log', Logger::DEBUG));
 
 date_default_timezone_set($_ENV['APP_TIMEZONE']);
 
@@ -59,6 +44,7 @@ $capsule->bootEloquent();
 
 Flight::set('flight.views.path',  __DIR__ . '/../resources/views');
 Flight::set('flight.compiled.views.path', __DIR__ . '/../storage/framework/views');
+Flight::set('flight.log_errors', $_ENV['APP_DEBUG'] === 'true');
 
 // Set the view renderer use twig. Before deploying to prod. activate the cache and
 // set the web user allowed to read/write from/to the folder.
@@ -73,11 +59,21 @@ Flight::register('view', 'Twig\Environment', array($loader, $twigConfig), functi
     $twig->addExtension(new Twig\Extension\DebugExtension());
 });
 
-Flight::set('flight.log_errors', true);
-
 // Map the call for ease of use.
 Flight::map('render', function($template, $data = []){
     return Flight::view()->display($template, $data);
+});
+
+$whoops = new Run;
+$whoops->pushHandler(new PrettyPageHandler());
+
+Flight::map('error', function(Error|Exception $ex) use ($log, $whoops) {
+    if ($_ENV['APP_DEBUG'] === 'true') {
+        $whoops->handleException($ex);
+    } else {
+        $log->error($ex->getTraceAsString());
+        Flight::render('error.twig');
+    }
 });
 
 $routes = glob(__DIR__ . '/../routes/*.php');
@@ -85,3 +81,4 @@ $routes = glob(__DIR__ . '/../routes/*.php');
 foreach ($routes as $route) {
     require_once($route);
 }
+

@@ -1,3 +1,3 @@
 <?php
 
-Flight::route('GET /', ['\Ntric\Backend\Http\Controllers\ExampleController', 'showCase']);
+Flight::route('GET /', ['\App\Http\Controllers\ExampleController', 'showCase']);

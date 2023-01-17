@@ -1,9 +1,11 @@
 <?php
 
-namespace Ntric\Backend\Http\Controllers;
+namespace App\Http\Controllers;
+
+use Flight;
 
 class ExampleController extends Controller {
     public static function showCase() {
-        \Flight::render('index.twig', ['name' => 'Ntric']);
+        Flight::render('indexs.twig', ['name' => 'Ntric']);
     }
 }
