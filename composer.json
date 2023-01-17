@@ -2,24 +2,26 @@
   "require": {
     "php": ">=8.1",
     "mikecao/flight": "^v1.3",
-    "rakibtg/sleekdb": "^2.13",
-    "monolog/monolog": "^3.1",
+    "monolog/monolog": "^3.2",
     "filp/whoops": "^2.14",
     "lavary/crunz": "^3.2",
-    "vlucas/phpdotenv": "^5.4"
+    "vlucas/phpdotenv": "^5.4",
+    "illuminate/database": "^9.48",
+    "illuminate/pagination": "^9.48",
+    "twig/twig": "v2.15.4"
   },
   "autoload": {
     "classmap": [
       "app/Classes"
     ],
     "psr-4": {
-      "Ntric\\Backend\\Controllers\\": "app/Controllers",
-      "Ntric\\Backend\\Config\\": "config",
-      "Ntric\\Backend\\Helpers\\": "app/Helpers",
-      "Ntric\\Backend\\Databases\\": "app/Databases"
+      "Ntric\\Backend\\Http\\Controllers\\": "app/Http/Controllers",
+      "Ntric\\Config\\": "config",
+      "Ntric\\App\\Helpers\\": "app/Helpers",
+      "Ntric\\App\\Databases\\": "app/Databases"
     }
   },
   "scripts": {
-    "serve": "php -S localhost:8000 index.php"
+    "serve": "php -S localhost:8000 public/index.php"
   }
 }
