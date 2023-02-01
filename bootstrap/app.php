@@ -70,9 +70,9 @@ $whoops->pushHandler(new PrettyPageHandler());
 
 Flight::map('error', function (Error|Exception $ex) use ($log, $whoops) {
     if ($_ENV['APP_DEBUG'] === 'true') {
+        $log->error($ex->getTraceAsString());
         $whoops->handleException($ex);
     } else {
-        $log->error($ex->getTraceAsString());
         Flight::render('error.twig');
     }
 });
@@ -88,4 +88,8 @@ $session = new Session();
 
 $session->start([
     'name' => $_ENV['SESSION_NAME'],
+    'sid_bits_per_character' => 4,
+    'sid_length' => 64,
+    'cookie_samesite' => 'Strict',
+    'cookie_secure'   => true
 ]);
