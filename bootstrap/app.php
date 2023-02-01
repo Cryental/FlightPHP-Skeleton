@@ -87,9 +87,9 @@ foreach ($routes as $route) {
 $session = new Session();
 
 $session->start([
-    'name' => $_ENV['SESSION_NAME'],
+    'name'                   => $_ENV['SESSION_NAME'],
     'sid_bits_per_character' => 4,
-    'sid_length' => 64,
-    'cookie_samesite' => 'Strict',
-    'cookie_secure'   => true
+    'sid_length'             => 64,
+    'cookie_samesite'        => 'Strict',
+    'cookie_secure'          => true,
 ]);
