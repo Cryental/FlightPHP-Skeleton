@@ -1,15 +1,15 @@
 {
   "require": {
-    "php": ">=8.1",
+    "php": "^8.0",
     "mikecao/flight": "^v1.3",
     "monolog/monolog": "^2.8",
     "filp/whoops": "^2.14",
-    "lavary/crunz": "^3.2",
     "vlucas/phpdotenv": "^5.4",
     "illuminate/database": "^9.48",
     "illuminate/pagination": "^9.48",
     "twig/twig": "v2.15.4",
-    "josantonius/session": "^2.0"
+    "josantonius/session": "^2.0",
+    "crunzphp/crunz": "^3.4"
   },
   "autoload": {
     "classmap": [

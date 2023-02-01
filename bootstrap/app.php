@@ -87,5 +87,5 @@ foreach ($routes as $route) {
 $session = new Session();
 
 $session->start([
-    'name' => 'CRYENTAL_SESSION_ID',
+    'name' => $_ENV['SESSION_NAME'],
 ]);

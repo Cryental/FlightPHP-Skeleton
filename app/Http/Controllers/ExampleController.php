@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use Flight;
+use Josantonius\Session\Facades\Session;
 
 class ExampleController extends Controller
 {
     public static function showCase()
     {
-        Flight::render('index.twig', ['name' => 'Ntric']);
+        $session = new Session();
+
+        $name = $session->get('hello');
+
+        Flight::render('index.twig', ['name' => $name]);
     }
 }
