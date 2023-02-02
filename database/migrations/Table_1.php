@@ -9,8 +9,7 @@ class Table_1 implements ITable
 {
     public function up()
     {
-        DB::schema('mysql')->create('tableName', function(Blueprint $table)
-        {
+        DB::schema('mysql')->create('tableName', function (Blueprint $table) {
             $table->id();
         });
     }

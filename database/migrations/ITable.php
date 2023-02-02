@@ -2,7 +2,9 @@
 
 namespace App\Database\Migrations;
 
-interface ITable {
+interface ITable
+{
     public function up();
+
     public function down();
 }
