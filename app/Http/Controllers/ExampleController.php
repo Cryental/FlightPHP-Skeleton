@@ -15,9 +15,9 @@ class ExampleController extends Controller
         $name = $session->get('hello');
 
         User::query()->create([
-            'name' => 'test',
-            'email' => 'test',
-            'password' => 'test'
+            'name'     => 'test',
+            'email'    => 'test',
+            'password' => 'test',
         ]);
 
         Flight::render('index.twig', ['name' => $name]);

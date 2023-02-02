@@ -21,7 +21,7 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__.'/../');
 $dotenv->safeLoad();
 
 $log = new Logger($_ENV['APP_NAME']);
-$log->pushHandler(new StreamHandler(__DIR__.'/../storage/logs/' . $_ENV['APP_NAME'] . '-'.Carbon::now()->toDateString().'.log', Logger::DEBUG));
+$log->pushHandler(new StreamHandler(__DIR__.'/../storage/logs/'.$_ENV['APP_NAME'].'-'.Carbon::now()->toDateString().'.log', Logger::DEBUG));
 
 date_default_timezone_set($_ENV['APP_TIMEZONE']);
 
