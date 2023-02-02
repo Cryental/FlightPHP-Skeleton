@@ -37,7 +37,7 @@ $capsule->addConnection([
 ], $_ENV['DB_CONNECTION']);
 
 Paginator::currentPageResolver(function ($pageName = 'page') {
-    return (int) ($_GET[$pageName] ?? 1);
+    return (int) (Flight::request()->query[$pageName] ?? 1);
 });
 
 $capsule->setAsGlobal();
