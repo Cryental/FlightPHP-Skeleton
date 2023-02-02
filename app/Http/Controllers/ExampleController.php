@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Flight;
 use Josantonius\Session\Facades\Session;
 
@@ -13,6 +14,12 @@ class ExampleController extends Controller
 
         $name = $session->get('hello');
 
-        Flight::render('error.twig', ['name' => $name]);
+        User::query()->create([
+            'name' => 'test',
+            'email' => 'test',
+            'password' => 'test'
+        ]);
+
+        Flight::render('index.twig', ['name' => $name]);
     }
 }
