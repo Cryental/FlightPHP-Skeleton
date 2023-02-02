@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Flight;
 use Josantonius\Session\Facades\Session;
-use Illuminate\Pagination\Paginator;
 
 class ExampleController extends Controller
 {
