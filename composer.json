@@ -17,8 +17,9 @@
     ],
     "psr-4": {
       "App\\Http\\Controllers\\": "app/Http/Controllers",
-      "Ntric\\Config\\": "config",
-      "Ntric\\App\\Helpers\\": "app/Helpers"
+      "App\\Models\\": "app/Models",
+      "App\\Config\\": "config",
+      "App\\Helpers\\": "app/Helpers"
     }
   },
   "scripts": {

@@ -13,6 +13,6 @@ class ExampleController extends Controller
 
         $name = $session->get('hello');
 
-        Flight::render('index.twig', ['name' => $name]);
+        Flight::render('error.twig', ['name' => $name]);
     }
 }
