@@ -6,7 +6,6 @@ use App\Models\User;
 use Flight;
 use Josantonius\Session\Facades\Session;
 
-
 class ExampleController extends Controller
 {
     public static function showCase($name, $id)
