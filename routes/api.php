@@ -1,3 +1,3 @@
 <?php
 
-Flight::route('GET /', ['\App\Http\Controllers\ExampleController', 'showCase']);
+Flight::route('GET /@name/@id', [\App\Http\Controllers\ExampleController::class, 'showCase']);
