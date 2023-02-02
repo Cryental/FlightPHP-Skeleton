@@ -11,3 +11,12 @@ php -S localhost:8000 public/index.php
 ```
 vendor/bin/crunz schedule:run
 ```
+
+### Run Migration
+```
+# Init Migrate
+php bin/migrations.php migrate
+
+# Remove All and Migrate Again
+php bin/migrations.php migrate:fresh
+```

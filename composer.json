@@ -19,7 +19,8 @@
       "App\\Http\\Controllers\\": "app/Http/Controllers",
       "App\\Models\\": "app/Models",
       "App\\Config\\": "config",
-      "App\\Helpers\\": "app/Helpers"
+      "App\\Helpers\\": "app/Helpers",
+      "App\\Database\\Migrations\\": "database/migrations"
     }
   },
   "scripts": {

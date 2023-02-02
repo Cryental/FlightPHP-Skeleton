@@ -5,6 +5,7 @@ require __DIR__.'/../vendor/autoload.php';
 use Carbon\Carbon;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Facade;
 use Josantonius\Session\Facades\Session;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -34,7 +35,7 @@ $capsule->addConnection([
     'database' => $_ENV['DB_DATABASE'],
     'username' => $_ENV['DB_USERNAME'],
     'password' => $_ENV['DB_PASSWORD'],
-]);
+], $_ENV['DB_CONNECTION']);
 
 Paginator::currentPageResolver(function ($pageName = 'page') {
     return (int) ($_GET[$pageName] ?? 1);
@@ -42,6 +43,7 @@ Paginator::currentPageResolver(function ($pageName = 'page') {
 
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
+
 
 Flight::set('flight.views.path', __DIR__.'/../resources/views');
 Flight::set('flight.compiled.views.path', __DIR__.'/../storage/framework/views');
